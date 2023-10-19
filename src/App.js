@@ -12,8 +12,8 @@ class App extends Component {
       <Container>
         <Routes>
           <Route path="/" element={<InvoiceTab />} />
-          <Route path="/invoice/create" element={<InvoiceForm />} />
-          <Route path="/invoice/edit/:id" element={<InvoiceForm />} />
+          <Route path="/create" element={<InvoiceForm />} />
+          <Route path="/edit/:id" element={<InvoiceForm />} />
         </Routes>
       </Container>
     );

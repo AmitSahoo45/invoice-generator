@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
 
 import { STATE } from '../constants/constants';
 import InvoiceModal from './InvoiceModal';
@@ -32,31 +31,34 @@ const InvoiceTab = () => {
     }
 
     const closeInvoice = () => setView(false);
-    const Edit_Invoice = item => navigate(`/edit/${item.id}`);
-
-    const Render_Invoice = () => {
-        return INVOICE.map((inv, index) => {
-            <Invoice
-                key={index}
-                item={inv}
-                edit={() => Edit_Invoice(inv)}
-                remove={() => Delete_Invoice(inv)}
-                view={() => View_Invoice(inv)}
-            />
-        })
-    }
+    const Edit_Invoice = item => navigate(`/edit/${item.invoiceNumber}`);
 
     return (
         <section className='p-3'>
             <main className='mb-4 d-flex justify-content-between'>
                 <h2 className=''>Welcome to Invoice List</h2>
-                <button type="button" class="btn btn-primary" href='/invoice/create'> Create New Invoice</button>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => navigate('/create')}
+                >
+                    Create New Invoice
+                </button>
             </main>
             <Row className='list'>
                 {INVOICE.length === 0 ?
                     <h2> No Invoices Available </h2>
                     :
-                    <Render_Invoice />
+                    INVOICE.map((inv, index) => {
+                        return (
+                            <Invoice
+                                key={index}
+                                item={inv}
+                                edit={() => Edit_Invoice(inv)}
+                                remove={() => Delete_Invoice(inv)}
+                                view={() => View_Invoice(inv)}
+                            />
+                        )
+                    })
                 }
             </Row>
             <InvoiceModal
