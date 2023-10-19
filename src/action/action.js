@@ -18,3 +18,10 @@ export const deleteInvoice = (invoice) => {
         payload: invoice
     }
 }
+
+export const copyToNewInvoice = (invoice) => {
+    return {
+        type: 'COPY_TO_NEW_INVOICE',
+        payload: invoice
+    }
+}

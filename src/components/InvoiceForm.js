@@ -1,6 +1,6 @@
 import React from 'react';
 import { toast, Toaster } from 'react-hot-toast'
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 
@@ -131,6 +131,7 @@ class InvoiceForm extends React.Component {
     this.isEditing ? this.props.editInvoice(this.state) : this.props.addInvoice(this.state);
     toast.success(`Invoice ${this.isEditing ? 'updated' : 'created'} successfully`)
     const { navigate } = this.props;
+
     setTimeout(() => {
       navigate('/')
     }, 2000)
@@ -396,7 +397,7 @@ class InvoiceForm extends React.Component {
         </Form>
 
         <Toaster
-          position="bottom-left"
+          position="top-center"
           reverseOrder={false}
         />
 
@@ -407,6 +408,7 @@ class InvoiceForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   invoice: state.invoice,
+  invoiceNumber: state.invoiceNumber
 })
 
 const mapDispatchToProps = (dispatch) => ({

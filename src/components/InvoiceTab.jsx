@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 import { STATE } from '../constants/constants';
 import InvoiceModal from './InvoiceModal';
-import { deleteInvoice } from '../action/action';
+import { deleteInvoice, copyToNewInvoice } from '../action/action';
 import Invoice from './Invoice';
 import NotFound from '../not_found.svg'
 
 const InvoiceTab = () => {
     const [view, setView] = useState(false);
     const [state, setState] = useState(STATE);
+    const [copyToNew, setCopyToNew] = useState(false);
     const [reload, setReload] = useState(false);
 
     const dispatch = useDispatch();
@@ -29,6 +30,11 @@ const InvoiceTab = () => {
     const Delete_Invoice = (item) => {
         dispatch(deleteInvoice(item));
         setReload(!reload);
+    }
+
+    const Copy_To_New = (item) => {
+        dispatch(copyToNewInvoice(item));
+        navigate('/create');
     }
 
     const closeInvoice = () => setView(false);
@@ -65,6 +71,7 @@ const InvoiceTab = () => {
                                 edit={() => Edit_Invoice(inv)}
                                 remove={() => Delete_Invoice(inv)}
                                 view={() => View_Invoice(inv)}
+                                copy={() => Copy_To_New(inv)}
                             />
                         )
                     })

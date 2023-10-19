@@ -1,5 +1,6 @@
 const initialState = {
     invoice: [],
+    invoiceNumber: 0
 }
 
 export default function reducer(state = initialState, action) {
@@ -23,6 +24,14 @@ export default function reducer(state = initialState, action) {
                     item.invoiceNumber == action.payload.invoiceNumber ? action.payload : item
                 ),
             };
+
+        case 'COPY_TO_NEW_INVOICE':
+            // only set the invoice number to action.payload.invoiceNumber rest remains the same
+            console.log(action.payload.invoiceNumber)
+            return {
+                ...state,
+                invoiceNumber: action.payload.invoiceNumber
+            }
 
         default:
             return state;
