@@ -14,3 +14,7 @@ body {
 .custom-bg-grey-light {
   background: #d3d3d342;
 }
+
+.Poppins {
+  font-family: 'Poppins', sans-serif;
+}

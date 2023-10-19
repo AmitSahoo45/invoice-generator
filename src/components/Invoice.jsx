@@ -2,6 +2,7 @@ import React from 'react'
 import { BiEdit } from 'react-icons/bi'
 import { AiFillDelete, AiFillEye } from 'react-icons/ai'
 import moment from 'moment/moment'
+import { Button } from 'react-bootstrap'
 
 const Invoice = ({ item, view, edit, remove }) => {
     return (
@@ -35,30 +36,30 @@ const Invoice = ({ item, view, edit, remove }) => {
                 </div>
             </div>
             <div className="d-flex justify-content-end mt-2">
-                <div className="ms-2 fs-4 text-secondary cursor-pointer" style={{ cursor: 'pointer' }}>
+                <Button onClick={view} type='button' variant='outline-secondary' className='me-2 fs--1 px-2' style={{ borderRadius: '7px' }}>
+                    <span>VIEW</span>
                     <AiFillEye
                         height={30}
                         width={30}
-                        onClick={view}
                         alt="view button"
                     />
-                </div>
-                <div className="ms-2 fs-4 text-primary cursor-pointer" style={{ cursor: 'pointer' }}>
+                </Button>
+                <Button onClick={edit} type='button' variant='primary' className='me-2 fs--1 px-2' style={{ borderRadius: '7px' }}>
+                    <span>EDIT</span>
                     <BiEdit
                         height={30}
                         width={30}
-                        onClick={edit}
                         alt="edit button"
                     />
-                </div>
-                <div className="ms-2 fs-4 text-danger cursor-pointer" style={{ cursor: 'pointer' }}>
+                </Button>
+                <Button onClick={remove} type='button' variant='danger' className='me-2 fs--1 px-2' style={{ borderRadius: '7px' }}>
+                    <span>DELETE</span>
                     <AiFillDelete
                         height={30}
                         width={30}
-                        onClick={remove}
                         alt="delete button"
                     />
-                </div>
+                </Button>
             </div>
         </div>
     )

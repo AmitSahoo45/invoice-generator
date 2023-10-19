@@ -7,6 +7,7 @@ import { STATE } from '../constants/constants';
 import InvoiceModal from './InvoiceModal';
 import { deleteInvoice } from '../action/action';
 import Invoice from './Invoice';
+import NotFound from '../not_found.svg'
 
 const InvoiceTab = () => {
     const [view, setView] = useState(false);
@@ -35,8 +36,8 @@ const InvoiceTab = () => {
 
     return (
         <section className='p-3'>
-            <main className='mb-4 d-flex justify-content-between'>
-                <h2 className=''>Welcome to Invoice List</h2>
+            <main className='mb-4 d-flex justify-content-between align-items-center'>
+                <h3 className='Poppins mb-0'>InvokR</h3>
                 <button
                     className="btn btn-primary"
                     onClick={() => navigate('/create')}
@@ -46,7 +47,15 @@ const InvoiceTab = () => {
             </main>
             <Row className='list'>
                 {INVOICE.length === 0 ?
-                    <h2> No Invoices Available </h2>
+                    <div className='d-flex align-items-center justify-content-center flex-column w-100'>
+                        <img
+                            height={200}
+                            src={NotFound} alt="not found"
+                        />
+                        <h3 className='text-muted text-center mt-3'>
+                            No Invoice Found
+                        </h3>
+                    </div>
                     :
                     INVOICE.map((inv, index) => {
                         return (

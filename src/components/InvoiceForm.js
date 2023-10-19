@@ -1,11 +1,9 @@
 import React from 'react';
 import { toast, Toaster } from 'react-hot-toast'
 import { connect } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { addInvoice, deleteInvoice, editInvoice } from '../action/action';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+import { BiArrowBack } from 'react-icons/bi';
 
-import { STATE } from '../constants/constants'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -14,6 +12,12 @@ import Card from 'react-bootstrap/Card';
 import InvoiceItem from './InvoiceItem';
 import InvoiceModal from './InvoiceModal';
 import InputGroup from 'react-bootstrap/InputGroup';
+
+import { addInvoice, deleteInvoice, editInvoice } from '../action/action';
+import { STATE } from '../constants/constants'
+import withRouter from '../hooks/withRouter';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class InvoiceForm extends React.Component {
   constructor(props) {
@@ -123,14 +127,26 @@ class InvoiceForm extends React.Component {
   openModal = (event) => {
     event.preventDefault()
     this.handleCalculateTotal()
+
     this.isEditing ? this.props.editInvoice(this.state) : this.props.addInvoice(this.state);
-    // this.setState({ isOpen: true });
     toast.success(`Invoice ${this.isEditing ? 'updated' : 'created'} successfully`)
+    const { navigate } = this.props;
+    setTimeout(() => {
+      navigate('/')
+    }, 2000)
   };
 
   render() {
     return (
-      <div className="App d-flex flex-column align-items-center justify-content-center w-100">
+      <div className="App d-flex flex-column align-items-center justify-content-center w-100 py-3">
+        {/* Create a back button but a divider below */}
+        <Row className="w-100 d-flex flex-row justify-content-start align-items-center">
+          <Link to="/">
+            <Button variant="outline-primary" className="mb-3">
+              <BiArrowBack className="me-2" />Back to All Invoices
+            </Button>
+          </Link>
+        </Row>
         <Form onSubmit={this.openModal}>
           <Row>
             <Col md={8} lg={9}>
@@ -166,6 +182,7 @@ class InvoiceForm extends React.Component {
                       min="1"
                       style={{ maxWidth: '70px' }}
                       required="required"
+                      disabled={this.isEditing}
                     />
 
                   </div>
@@ -398,4 +415,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(InvoiceForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InvoiceForm));
